@@ -1,0 +1,152 @@
+Program 15: Student Database Using MongoDB and Express.js
+Aim: To perform CRUD operations, filtering, aggregation, validation, and indexing on student records.
+
+This program has several requirements, so one short file would be difficult to explain. Here is a moderate-length version using MongoDB's native Node.js driver and Express.
+Step 1: Install packages
+npm init -y
+npm install express mongodb
+
+Make sure MongoDB is running.
+Step 2: Code program15.js
+var express = require('express');
+var {MongoClient} = require('mongodb');
+
+var app = express();
+app.use(express.json());
+
+var url = 'mongodb://127.0.0.1:27017';
+var client = new MongoClient(url);
+
+async function start() {
+    await client.connect();
+
+    var db = client.db('college');
+    var students = db.collection('students');
+
+    // Validation
+    await db.command({
+        collMod: 'students',
+        validator: {
+            $jsonSchema: {
+                bsonType: 'object',
+                required: ['roll', 'name', 'branch', 'year', 'marks'],
+                properties: {
+                    roll: {bsonType: 'int'},
+                    name: {bsonType: 'string'},
+                    branch: {bsonType: 'string'},
+                    year: {bsonType: 'int'},
+                    marks: {bsonType: 'int'}
+                }
+            }
+        },
+        validationLevel: 'strict'
+    }).catch(async function() {
+        await db.createCollection('students', {
+            validator: {
+                $jsonSchema: {
+                    bsonType: 'object',
+                    required: ['roll', 'name', 'branch', 'year', 'marks'],
+                    properties: {
+                        roll: {bsonType: 'int'},
+                        name: {bsonType: 'string'},
+                        branch: {bsonType: 'string'},
+                        year: {bsonType: 'int'},
+                        marks: {bsonType: 'int'}
+                    }
+                }
+            }
+        });
+    });
+
+    // Index on roll number
+    await students.createIndex({roll: 1}, {unique: true});
+
+    // Insert
+    app.get('/insert', async function(req, res) {
+        try {
+            await students.insertOne({
+                roll: 101,
+                name: 'Ravi',
+                branch: 'CSE',
+                year: 2,
+                marks: 85
+            });
+            res.send('Student inserted');
+        } catch (err) {
+            res.status(400).send('Insert failed: ' + err.message);
+        }
+    });
+
+    // Retrieve all students
+    app.get('/students', async function(req, res) {
+        res.json(await students.find().toArray());
+    });
+
+    // Find students by branch
+    app.get('/branch/:name', async function(req, res) {
+        res.json(await students.find({
+            branch: req.params.name
+        }).toArray());
+    });
+
+    // Update marks
+    app.get('/update/:roll/:marks', async function(req, res) {
+        var result = await students.updateOne(
+            {roll: Number(req.params.roll)},
+            {$set: {marks: Number(req.params.marks)}}
+        );
+        res.send('Updated records: ' + result.modifiedCount);
+    });
+
+    // Delete student
+    app.get('/delete/:roll', async function(req, res) {
+        var result = await students.deleteOne({
+            roll: Number(req.params.roll)
+        });
+        res.send('Deleted records: ' + result.deletedCount);
+    });
+
+    // Marks greater than 70
+    app.get('/above70', async function(req, res) {
+        res.json(await students.find({
+            marks: {$gt: 70}
+        }).toArray());
+    });
+
+    // CSE or IT
+    app.get('/cseit', async function(req, res) {
+        res.json(await students.find({
+            branch: {$in: ['CSE', 'IT']}
+        }).toArray());
+    });
+
+    // Average marks
+    app.get('/average', async function(req, res) {
+        res.json(await students.aggregate([
+            {$group: {_id: null, average: {$avg: '$marks'}}}
+        ]).toArray());
+    });
+
+    // Highest marks in each branch
+    app.get('/highest', async function(req, res) {
+        res.json(await students.aggregate([
+            {$group: {_id: '$branch', highest: {$max: '$marks'}}}
+        ]).toArray());
+    });
+
+    // Count students branch-wise
+    app.get('/count', async function(req, res) {
+        res.json(await students.aggregate([
+            {$group: {_id: '$branch', count: {$sum: 1}}}
+        ]).toArray());
+    });
+
+    app.listen(3000, function() {
+        console.log('Student server running on port 3000');
+    });
+}
+
+start().catch(console.error);
+
+Step 3: Execute
+node program15.js

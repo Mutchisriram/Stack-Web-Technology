@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+
+</head>
+
+<body ng-controller="c">
+
+<h2>Student Registration</h2>
+
+<form name="f">
+
+Name:
+<input ng-model="name" required>
+<br><br>
+
+Roll No:
+<input ng-model="roll" required>
+<br><br>
+
+Branch:
+<input ng-model="branch" required>
+<br><br>
+
+<button ng-disabled="f.$invalid">Register</button>
+
+</form>
+
+<hr>
+
+<h3>Student Details</h3>
+
+<p>Name: {{name}}</p>
+<p>Roll No: {{roll}}</p>
+<p>Branch: {{branch}}</p>
+
+<p ng-if="f.$invalid">Please fill all fields</p>
+<p ng-if="f.$valid">Form is valid</p>
+
+<script>
+
+angular.module("app", [])
+.controller("c", function($scope) {});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+var s = require('./student');
+
+var name = 'Ravi';
+var m1 = 80, m2 = 75, m3 = 90;
+
+var total = s.total(m1, m2, m3);
+var per = s.percentage(total);
+
+console.log('Student Name:', name);
+console.log('Total Marks:', total);
+console.log('Percentage:', per + '%');

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="ctrl">
+
+Name: <input ng-model="name">
+Marks: <input type="number" ng-model="marks">
+
+<h3>Name: {{name}}</h3>
+<h3>Marks: {{marks}}</h3>
+
+<p ng-if="marks >= 40">Pass</p>
+<p ng-if="marks < 40">Fail</p>
+
+<script>
+angular.module("app", []).controller("ctrl", function($scope) {
+    $scope.name = "Ravi";
+    $scope.marks = 80;
+});
+</script>
+
+</body>
+</html>

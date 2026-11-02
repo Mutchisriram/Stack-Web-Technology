@@ -1,13 +1,29 @@
-Program 15: Student Database Using MongoDB and Express.js
-Aim: To perform CRUD operations, filtering, aggregation, validation, and indexing on student records.
+# Program 15: Student Database Using MongoDB and Express.js
 
-This program has several requirements, so one short file would be difficult to explain. Here is a moderate-length version using MongoDB's native Node.js driver and Express.
-Step 1: Install packages
+## Aim
+
+To perform CRUD operations, filtering, aggregation, validation, and indexing on student records.
+
+This program uses MongoDB's native Node.js driver and Express.js.
+
+## Step 1: Install Packages
+
+Initialize the Node.js project and install the required packages.
+
+```bash
 npm init -y
 npm install express mongodb
+```
 
 Make sure MongoDB is running.
-Step 2: Code program15.js
+
+## Step 2: Create the Program File
+
+Create a file named `program15.js`.
+
+## Step 3: Code `program15.js`
+
+```javascript
 var express = require('express');
 var {MongoClient} = require('mongodb');
 
@@ -147,6 +163,41 @@ async function start() {
 }
 
 start().catch(console.error);
+```
 
-Step 3: Execute
+## Step 4: Execute the Program
+
+Run the following command in the terminal.
+
+```bash
 node program15.js
+```
+
+Expected terminal output:
+
+```text
+Student server running on port 3000
+```
+
+## Step 5: Test the Application
+
+Open your browser and visit the following URLs:
+
+| URL                                   | Description                        |
+| ------------------------------------- | ---------------------------------- |
+| `http://localhost:3000/insert`        | Inserts a student record           |
+| `http://localhost:3000/students`      | Displays all students              |
+| `http://localhost:3000/branch/CSE`    | Finds students in the CSE branch   |
+| `http://localhost:3000/update/101/95` | Updates marks to 95                |
+| `http://localhost:3000/delete/101`    | Deletes a student                  |
+| `http://localhost:3000/above70`       | Finds students scoring above 70    |
+| `http://localhost:3000/cseit`         | Finds CSE or IT students           |
+| `http://localhost:3000/average`       | Calculates average marks           |
+| `http://localhost:3000/highest`       | Finds highest marks in each branch |
+| `http://localhost:3000/count`         | Counts students branch-wise        |
+
+**Note:** Visit `/insert` only once for the sample student. Repeated requests will cause a duplicate-key error because the roll number is unique.
+
+## Result
+
+Thus, a student database application was created using MongoDB and Express.js to perform CRUD operations, filtering, aggregation, validation, and indexing.

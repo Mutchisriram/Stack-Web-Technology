@@ -1,26 +1,41 @@
-Program 14: Student Application Using Express.js
-Aim: To create an Express application with routes, GET and POST requests, middleware, static files, and a template engine.
+# Program 14: Student Application Using Express.js
 
-This example uses EJS as the template engine.
-Step 1: Install packages
+## Aim
+
+To create an Express application with routes, GET and POST requests, middleware, static files, and a template engine.
+
+This program uses **EJS** as the template engine.
+
+## Step 1: Install Packages
+
+Initialize the Node.js project and install Express.js and EJS.
+
+```bash
 npm init -y
 npm install express ejs
+```
 
-Step 2: Create this folder structure
+## Step 2: Create Folder Structure
+
+Create the following files and folders:
+
+```text
 studentapp/
-│
 ├── app.js
 ├── public/
 │   └── style.css
 └── views/
     └── students.ejs
+```
 
-Step 3: Code app.js
+## Step 3: Write the Code in `app.js`
+
+```javascript
 var express = require('express');
 var app = express();
 
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // Middleware
 app.use(function(req, res, next) {
@@ -43,7 +58,7 @@ app.get('/about', function(req, res) {
 
 // Students page
 app.get('/students', function(req, res) {
-    res.render('students', {name: 'Ravi', roll: 101});
+    res.render('students', { name: 'Ravi', roll: 101 });
 });
 
 // POST request
@@ -54,19 +69,85 @@ app.post('/students', function(req, res) {
 app.listen(3000, function() {
     console.log('Server running on port 3000');
 });
+```
 
-Step 4: Code views/students.ejs
+## Step 4: Write the Code in `views/students.ejs`
+
+```html
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Student Details</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
 <body>
     <h1>Student Details</h1>
     <p>Name: <%= name %></p>
     <p>Roll Number: <%= roll %></p>
 </body>
 </html>
+```
 
-Step 5: Code public/style.css
+## Step 5: Write the Code in `public/style.css`
+
+```css
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     background-color: lightblue;
 }
+```
+
+## Step 6: Run the Application
+
+Start the server using:
+
+```bash
+node app.js
+```
+
+The terminal displays:
+
+```text
+Server running on port 3000
+```
+
+## Step 7: Test the Application
+
+Open your browser and visit the following URLs:
+
+| URL                              | Description                        |
+| -------------------------------- | ---------------------------------- |
+| `http://localhost:3000/`         | Displays the welcome message       |
+| `http://localhost:3000/about`    | Displays the about page            |
+| `http://localhost:3000/students` | Displays student details using EJS |
+
+The POST route `/students` can be tested using a form or an API testing tool.
+
+## Output
+
+**Home Page:**
+
+```text
+Welcome to Student Application
+```
+
+**About Page:**
+
+```text
+About Student Application
+```
+
+**Students Page:**
+
+```text
+Student Details
+
+Name: Ravi
+Roll Number: 101
+```
+
+The students page has a light blue background.
+
+## Result
+
+Thus, an Express.js student application was created successfully using routes, GET and POST requests, middleware, static files, and the EJS template engine.

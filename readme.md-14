@@ -1,0 +1,72 @@
+Program 14: Student Application Using Express.js
+Aim: To create an Express application with routes, GET and POST requests, middleware, static files, and a template engine.
+
+This example uses EJS as the template engine.
+Step 1: Install packages
+npm init -y
+npm install express ejs
+
+Step 2: Create this folder structure
+studentapp/
+│
+├── app.js
+├── public/
+│   └── style.css
+└── views/
+    └── students.ejs
+
+Step 3: Code app.js
+var express = require('express');
+var app = express();
+
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({extended: true}));
+
+// Middleware
+app.use(function(req, res, next) {
+    console.log(req.method, req.url);
+    next();
+});
+
+// Static files
+app.use(express.static('public'));
+
+// Home route
+app.get('/', function(req, res) {
+    res.send('<h1>Welcome to Student Application</h1>');
+});
+
+// About route
+app.get('/about', function(req, res) {
+    res.send('About Student Application');
+});
+
+// Students page
+app.get('/students', function(req, res) {
+    res.render('students', {name: 'Ravi', roll: 101});
+});
+
+// POST request
+app.post('/students', function(req, res) {
+    res.send('Student details submitted successfully');
+});
+
+app.listen(3000, function() {
+    console.log('Server running on port 3000');
+});
+
+Step 4: Code views/students.ejs
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Student Details</h1>
+    <p>Name: <%= name %></p>
+    <p>Roll Number: <%= roll %></p>
+</body>
+</html>
+
+Step 5: Code public/style.css
+body {
+    font-family: Arial;
+    background-color: lightblue;
+}

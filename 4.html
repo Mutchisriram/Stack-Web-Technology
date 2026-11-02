@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+<h2 id="head">Hello Student</h2>
+
+<button id="hide">Hide</button>
+<button id="show">Show</button>
+
+<input id="txt" placeholder="Enter name">
+<p id="out"></p>
+
+<script>
+$("#hide").click(function() {
+    $("#head").hide();
+});
+
+$("#show").click(function() {
+    $("#head").show();
+});
+
+$("#txt").keyup(function() {
+    $("#out").text($(this).val());
+});
+</script>
+
+</body>
+</html>

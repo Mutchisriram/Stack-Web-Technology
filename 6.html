@@ -1,25 +1,34 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html>
 <head>
+
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
-<body ng-controller="ctrl">
 
-Name: <input ng-model="name">
-Marks: <input type="number" ng-model="marks">
+<body ng-app>
 
-<h3>Name: {{name}}</h3>
-<h3>Marks: {{marks}}</h3>
+    Name:
+    <input ng-model ="name"><br><br>
 
-<p ng-if="marks >= 40">Pass</p>
-<p ng-if="marks < 40">Fail</p>
+    Branch:
+    <input ng-model = "branch"><br><br>
 
-<script>
-angular.module("app", []).controller("ctrl", function($scope) {
-    $scope.name = "Ravi";
-    $scope.marks = 80;
-});
-</script>
+    Marks 1:
+    <input type="number" ng-model="m1"><br>
+    Marks 2:
+    <input type="number" ng-model="m2"><br>
+    Marks 3:
+    <input type="number" ng-model="m3"><br><br>
 
+    <h2>Student Information</h2>
+
+    <p>Name: {{name}}</p>
+    <p>Branch: {{branch}}</p>
+
+    <p>Total : {{m1+m2+m3}}</p>
+    <p>Average : {{(m1+m2+m3)/3}}</p>
+
+    <p ng-if ="(m1+m2+m3)/3>=40">pass</p>
+    <p ng-if ="(m1+m2+m3)/3<40">fail</p>
 </body>
 </html>

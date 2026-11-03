@@ -25,3 +25,25 @@ var server = http.createServer(function(req, res) {
 server.listen(3000, function() {
     console.log('Server running on port 3000');
 });
+//
+const http = require("http");
+
+http.createServer((req, res) => {
+
+    if (req.url == "/")
+        res.end("Welcome Student");
+
+    else if (req.url == "/list")
+        res.end("Ravi, Ram, Raju");
+
+    else if (req.url == "/details")
+        res.end("Ravi, Marks: 80");
+
+    else if (req.url == "/json") {
+        res.setHeader("Content-Type", "application/json");
+        res.end('{"name":"Ravi","marks":80}');
+    }
+
+}).listen(3000, () => {
+    console.log("Server running on port 3000");
+});

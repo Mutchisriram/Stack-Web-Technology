@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>jQuery Events</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
+
 <body>
+    <h2 id="Student">Student: Yaswanth</h2>
 
-<h2 id="head">Hello Student</h2>
+    <button id="color">Change Color</button>
+    <button id="hide">Hide</button>
+    <button id="show">Show</button>
 
-<button id="hide">Hide</button>
-<button id="show">Show</button>
+    <br><br>
+    <input id="txt" placeholder="Type Something">
+    <p id="output"></p>
 
-<input id="txt" placeholder="Enter name">
-<p id="out"></p>
+    <script>
+        const student = $("#Student");
+        const output = $("#output");
 
-<script>
-$("#hide").click(function() {
-    $("#head").hide();
-});
+        $("#color").click(function() {
+            $("body").css("background", "lightblue");
+        });
 
-$("#show").click(function() {
-    $("#head").show();
-});
+        $("#hide").click(function() {
+            student.hide();
+        });
 
-$("#txt").keyup(function() {
-    $("#out").text($(this).val());
-});
-</script>
+        $("#show").click(function() {
+            student.show();
+        });
 
+        $("txt").keyup(function() {
+            output.text(this.value);
+        });
+
+        student.mouseenter(function() {
+            output.text("Mouse Entered");
+        });
+
+        student.mouseleave(function() {
+            output.text("Mouse Left");
+        })
+    </script>
 </body>
 </html>

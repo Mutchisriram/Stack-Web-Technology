@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>DOM Manipulation</title>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
+
 <body>
+    <ul id="list">
+        <li>Ravi</li>
+        <li id="sel">Ram</li>
+        <li>sita</li>
+    </ul>
 
-<ul id="list">
-<li>Ravi</li>
-<li>Ram</li>
-</ul>
+    <button id="add">Add</button>
+    <button id="remove">Remove</button>
+    <button id="change">Change</button>
+    <button id="show">Show First/last</button>
 
-<button id="add">Add</button>
-<button id="remove">Remove</button>
+    <p id="result"></p>
 
-<script>
-$("#add").click(function() {
-    $("#list").append("<li>Sita</li>");
-});
+    <script>
+        const list = $("#list");
+        const result = $("#result");
+        $("#add").click(function() {
+            $("#list").append("<li>Yaswanth</li>");
+        });
 
-$("#remove").click(function() {
-    $("#list li:last").remove();
-});
-</script>
+        $("#remove").click(function() {
+            $("#sel").remove();
+        });
 
+        $("#change").click(function() {
+            $("#sel").text("kiran");
+        });
+
+        $("#show").click(function() {
+            result.text("First: " + list.find("li").first().text() + ", Last: " + list.find("li").last().text());
+
+        });
+    </script>
 </body>
 </html>

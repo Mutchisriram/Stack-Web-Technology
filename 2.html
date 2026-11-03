@@ -1,19 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+    #p {
+        background: yellow;
+        color: blue;
+        font-size: 25px;
+        border: 2px solid black;
+    }
+</style>
+
+<script>
+    $(function() {
+        $("#p").css({
+            background: "yellow",
+            color: "blue",
+            fontSize: "25px",
+            border: "2px solid black"
+        });
+
+        $("#changecolor").click(function() {
+            $("#p").css("color", "red");
+        });
+    });
+
+</script>
+
 </head>
 <body>
 
-<h2 id="head">Student Details</h2>
-<button id="btn">Change Style</button>
+    <h2>Student Details</h2>
+    <p id="p">Yaswanth</p>
 
-<script>
-$("#btn").click(function() {
-    $("#head").css("color", "blue");
-    $("#head").css("background", "yellow");
-});
-</script>
+    <button id="changecolor">changecolor</button>
 
+    <table border="1">
+        <tr><td>Name</td><td>Roll No</td><td>Marks</td></tr>
+        <tr><td>Yaswanth</td><td>123</td><td>85</td></tr>
+    </table>
 </body>
 </html>
